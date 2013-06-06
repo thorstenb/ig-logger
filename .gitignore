@@ -1,0 +1,13 @@
+# backup and temporary files
+*~
+\#*
+.DS_Store
+
+# autoconf generated stuff
+/aclocal.m4
+/autom4te.cache
+/config.guess
+/config.log
+/config.status
+/config.parms
+/configure
