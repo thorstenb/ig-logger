@@ -6,8 +6,16 @@
 # autoconf generated stuff
 /aclocal.m4
 /autom4te.cache
+/config.h.in
 /config.guess
 /config.log
+/config.sub
 /config.status
 /config.parms
 /configure
+/ar-lib
+/install-sh
+/ltmain.sh
+/m4
+/missing
+/Makefile.in

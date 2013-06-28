@@ -1,0 +1,4 @@
+ig-logger is a set of command-line utilities to read and write to
+Fronius IG-Series solar inverters.
+
+The source code is available under the MPL2.
