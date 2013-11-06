@@ -2,10 +2,12 @@
 *~
 \#*
 .DS_Store
+/.deps
 
 # autoconf generated stuff
 /aclocal.m4
 /autom4te.cache
+/config.h
 /config.h.in
 /config.guess
 /config.log
@@ -19,3 +21,6 @@
 /m4
 /missing
 /Makefile.in
+/Makefile
+/stamp-h1
+/depcomp
