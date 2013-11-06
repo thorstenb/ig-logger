@@ -1,6 +1,10 @@
 ACLOCAL_AMFLAGS = -I m4
 SUBDIRS =
 
+bin_PROGRAMS = iglogger
+iglogger_SOURCES = logig_main.cpp
+iglogger_LDADD = $(LIBOBJS)
+
 EXTRA_DIST = \
 	AUTHORS \
 	COPYING.MPL \
