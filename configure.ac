@@ -139,7 +139,9 @@ AM_CONDITIONAL([WITH_LIBCDR_DOCS], [test "x$build_docs" != "xno"])
 # Prepare all .in files
 # =====================
 AC_CONFIG_FILES([
-Makefile
+    Makefile
+    src/Makefile
+    tests/Makefile
 ])
 AC_OUTPUT
 

@@ -1,9 +1,7 @@
-ACLOCAL_AMFLAGS = -I m4
-SUBDIRS =
+AUTOMAKE_OPTIONS=dist-xz
 
-bin_PROGRAMS = iglogger
-iglogger_SOURCES = logig_main.cpp
-iglogger_LDADD = $(LIBOBJS)
+ACLOCAL_AMFLAGS = -I m4
+SUBDIRS = src tests
 
 EXTRA_DIST = \
 	AUTHORS \
