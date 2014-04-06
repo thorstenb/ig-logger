@@ -12,12 +12,7 @@
 #ifndef INCLUDED_LOCALNET_H
 #define INCLUDED_LOCALNET_H
 
-#define DETAILED_OUTPUT 0
-
-#define DEFINE_DATA 1
 #include "clsData.h"
-#undef DEFINE_DATA
-
 #include <datecls.hpp>
 #include "clsSystemTime.h"
 #include "clsExcept.h"
@@ -496,10 +491,6 @@ public:
     String                          sDevice();
 };
 
-
-#define DEFINE_DATA 2
-#include "clsData.h"
-#undef DEFINE_DATA
 
 class clsLocalNet
     : public clsIGInterface

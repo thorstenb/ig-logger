@@ -16,8 +16,6 @@
 #include "clsExcept.h"
 #include "clsLocalNet.h"
 
-#define DETAILED_OUTPUT 0
-
 String                          sString(const BYTE*& pPayload)
 {
     String  s;
