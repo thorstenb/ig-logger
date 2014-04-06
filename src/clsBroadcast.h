@@ -9,7 +9,8 @@
  * Original author: Christian Kaiser <info@invest-tools.com>
  */
 
-//#include <winsock2.h>
+#ifndef INCLUDED_BROADCAST_H
+#define INCLUDED_BROADCAST_H
 
 class clsBroadcastServer
 {
@@ -75,4 +76,7 @@ public:
             Close();
     }
 };
+
+#endif // !defined INCLUDED_BROADCAST_H
+
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

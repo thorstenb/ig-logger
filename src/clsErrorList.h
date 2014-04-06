@@ -9,12 +9,14 @@
  * Original author: Christian Kaiser <info@invest-tools.com>
  */
 
-#pragma once
+#ifndef INCLUDED_ERRORLIST_H
+#define INCLUDED_ERRORLIST_H
 
-#include "..\logig2\clsSystemtime.h"
+#include "clsSystemtime.h"
 
 typedef WCValSkipListDict<clsSYSTEMTIME,String>     clsErrorList;
 typedef WCValSkipListDictIter<clsSYSTEMTIME,String> clsErrorListIter;
 
+#endif // !defined INCLUDED_ERRORLIST_H
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

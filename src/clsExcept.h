@@ -9,9 +9,8 @@
  * Original author: Christian Kaiser <info@invest-tools.com>
  */
 
-#pragma once
-#if !defined(_INC_EXCEPT)
-#define _INC_EXCEPT
+#ifndef INCLUDED_EXCEPT_H
+#define INCLUDED_EXCEPT_H
 
 #include <wcstack.h>
 #include <wclist.h>
@@ -94,6 +93,6 @@ public:
     }
 };
 
-#endif
+#endif // !defined( INCLUDED_EXCEPT_H)
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

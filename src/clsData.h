@@ -9,10 +9,10 @@
  * Original author: Christian Kaiser <info@invest-tools.com>
  */
 
-#if DEFINE_DATA==1
+#ifndef INCLUDED_DATA_H
+#define INCLUDED_DATA_H
 
-#include <clsVariant.hpp>
-
+#include "clsVariant.hpp"
 #include "clsSystemTime.h"
 
 class clsDataItem
@@ -131,10 +131,6 @@ public:
     }
 };
 
-#endif
-
-#if DEFINE_DATA==2
-
 typedef WCValSkipListDictIter<clsLocalNetID,clsDataList*>
 clsDeviceDataListIter;
 class clsDeviceDataList
@@ -204,6 +200,6 @@ public:
     }
 };
 
-#endif
+#endif // !defined INCLUDED_DATA_H
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

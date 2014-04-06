@@ -9,9 +9,8 @@
  * Original author: Christian Kaiser <info@invest-tools.com>
  */
 
-#pragma once
-#if !defined(_INC_SYSTEMTIME)
-#define _INC_SYSTEMTIME
+#ifndef INCLUDED_SYSTEMTIME_H
+#define INCLUDED_SYSTEMTIME_H
 
 #include <math.h>
 
@@ -301,6 +300,6 @@ public:
     }
 };
 
-#endif
+#endif // !defined INCLUDED_SYSTEMTIME_H
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

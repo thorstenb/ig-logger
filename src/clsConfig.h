@@ -9,7 +9,8 @@
  * Original author: Christian Kaiser <info@invest-tools.com>
  */
 
-#pragma once
+#ifndef INCLUDED_CONFIG_H
+#define INCLUDED_CONFIG_H
 
 #include "clsLocalNet.h"
 
@@ -88,4 +89,7 @@ public:
 };
 
 extern clsConfigOfLocation  __LocationConfig;
+
+#endif // !defined INCLUDED_CONFIG_H
+
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

@@ -9,7 +9,8 @@
  * Original author: Christian Kaiser <info@invest-tools.com>
  */
 
-#pragma once
+#ifndef INCLUDED_OUTPUTMANAGER_H
+#define INCLUDED_OUTPUTMANAGER_H
 
 #include "clsConfig.h"
 #include "clsExcept.h"
@@ -111,7 +112,6 @@ public:
     virtual void                    DailyMaintenance(const clsLocalNetID& ID);
 };
 
-
-
+#endif // !defined INCLUDED_OUTPUTMANAGER_H
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

@@ -9,19 +9,8 @@
  * Original author: Christian Kaiser <info@invest-tools.com>
  */
 
-// #define _WIN32_WINNT 0x0400
-#define WINVER          0x0400
-
-#include <win.h>
-
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <str.hpp>
-#include <wcskip.h>
-#include <wcskipit.h>
-#include <wcvector.h>
-#include <wcqueue.h>
+#ifndef INCLUDED_LOGIG_H
+#define INCLUDED_LOGIG_H
 
 const unsigned MAX_MSG_SIZE = 128;
 
@@ -33,6 +22,6 @@ extern bool bUserAbortRequested();
 extern void AlertUser(const String& sSubject,
                       const String& sDetails = __sEmptyString);
 
-
+#endif // !defined INCLUDED_LOGIG_H
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

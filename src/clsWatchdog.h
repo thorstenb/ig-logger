@@ -9,6 +9,9 @@
  * Original author: Christian Kaiser <info@invest-tools.com>
  */
 
+#ifndef INCLUDED_WATCHDOG_H
+#define INCLUDED_WATCHDOG_H
+
 #include "clsExecProcess.h"
 
 class clsAlertMessage
@@ -230,4 +233,7 @@ public:
         __Watchdog.SetActive(true);
     }
 };
+
+#endif // !defined INCLUDED_WATCHDOG_H
+
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

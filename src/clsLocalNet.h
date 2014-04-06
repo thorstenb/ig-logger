@@ -9,7 +9,8 @@
  * Original author: Christian Kaiser <info@invest-tools.com>
  */
 
-#pragma once
+#ifndef INCLUDED_LOCALNET_H
+#define INCLUDED_LOCALNET_H
 
 #define DETAILED_OUTPUT 0
 
@@ -23,7 +24,6 @@
 #include "clsErrorList.h"
 #include "clsBroadcast.h"
 
-#if 1
 template <class T>
 class clsResult
 {
@@ -55,23 +55,6 @@ public:
         _sResult = sResult;
     }
 };
-#else
-template <class T>
-class clsResult
-{
-public:
-    clsResult(const String& /* sText */, T& /* Res */)
-    {
-    }
-    ~clsResult(void)
-    {
-    }
-
-    void                            Set(const String&)
-    {
-    }
-};
-#endif
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -829,5 +812,6 @@ public:
     }
 };
 
+#endif // !defined INCLUDED_LOCALNET_H
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

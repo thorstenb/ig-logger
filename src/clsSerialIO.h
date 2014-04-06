@@ -9,8 +9,8 @@
  * Original author: Christian Kaiser <info@invest-tools.com>
  */
 
-#if !defined(_INC_SERIALIO)
-#define _INC_SERIALIO
+#ifndef INCLUDED_SERIALIO_H
+#define INCLUDED_SERIALIO_H
 
 #include "\dev\h\ms\setupapi.h"
 
@@ -195,6 +195,6 @@ public:
 
 //////////////////////////////////////////////////////////////////////////////
 
-#endif
+#endif // !defined INCLUDED_SERIALIO_H
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */
