@@ -293,15 +293,6 @@ void                            clsIGInterface::NtfyData(const BYTE* pData,
 {
     _chk_debug(+1,">clsIGInterface::NtfyData (%d bytes)",nSize);
 
-#if GPFPROTECT
-    clsGPFProtection    GPF(GPFPROTFLAG_TRACE|GPFPROTFLAG_MSGBOX);
-
-    if (GPF.Error())
-    {
-        exit(255);
-    }
-#endif
-
     for (int n = 0; n < nSize; ++n)
     {
         // _chk_utildebug("%d: %d %d",_MessageStack.entries(),n,pData[n]);

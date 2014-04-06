@@ -16,15 +16,6 @@
 bool                            clsLocalNet::QueryHistoricalData(
     const clsDate& Date, clsDeviceDataList* pDataList)
 {
-#if GPFPROTECT
-    clsGPFProtection            GPF(GPFPROTFLAG_TRACE|GPFPROTFLAG_MSGBOX);
-
-    if (GPF.Error())
-    {
-        exit(255);
-    }
-#endif
-
     bool                        bRes(false);
     clsResult<bool>             Result(
         String::Format("clsLocalNet::clsLocalNetQueryHistoricalData",Date.Year(),

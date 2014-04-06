@@ -9,10 +9,7 @@
  * Original author: Christian Kaiser <info@invest-tools.com>
  */
 
-#include "logig.h"
-
-#include <conio.h>
-#include <GPFProt.hpp>
+#include "ig-logger.h"
 
 #include "clsExcept.h"
 #include "clsLocalNet.h"
@@ -436,15 +433,6 @@ int main(int argc, char* argv[])
     // clsSolarInfo SI; // test object
 
     __LibInfo.Attach(NULL);
-
-#if GPFPROTECT
-    clsGPFProtection    GPF(GPFPROTFLAG_TRACE|GPFPROTFLAG_MSGBOX);
-
-    if (GPF.Error())
-    {
-        return(255);
-    }
-#endif
 
     WCValSList<String>  Args;
 
