@@ -12,15 +12,8 @@
 #ifndef INCLUDED_LOGIG_H
 #define INCLUDED_LOGIG_H
 
-const unsigned MAX_MSG_SIZE = 128;
-
-#define GPFPROTECT  1
-
-#include "clsSerialIO.h"
-
-extern bool bUserAbortRequested();
-extern void AlertUser(const String& sSubject,
-                      const String& sDetails = __sEmptyString);
+/// Static buffer size for sending stuff
+const unsigned int MAX_MSG_SIZE = 128;
 
 #endif // !defined INCLUDED_LOGIG_H
 
