@@ -13,8 +13,8 @@
 
 #include "..\logig2\clsSystemtime.h"
 
-typedef WCValSkipListDict<clsSYSTEMTIME,String>		clsErrorList;
-typedef WCValSkipListDictIter<clsSYSTEMTIME,String>	clsErrorListIter;
+typedef WCValSkipListDict<clsSYSTEMTIME,String>     clsErrorList;
+typedef WCValSkipListDictIter<clsSYSTEMTIME,String> clsErrorListIter;
 
 
 /* vim:set shiftwidth=4 softtabstop=4 expandtab: */

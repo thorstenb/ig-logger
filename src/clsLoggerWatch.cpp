@@ -15,71 +15,71 @@
 #include "clsLocalNet.h"
 
 clsLoggerWatch::clsLoggerWatch(clsLocalNet* pLocalNet)
-	: clsThreadBase("clsLoggerWatch")
-	, _pLocalNet(pLocalNet)
+    : clsThreadBase("clsLoggerWatch")
+    , _pLocalNet(pLocalNet)
 {
-	ThreadStart();
+    ThreadStart();
 }
 
 clsLoggerWatch::~clsLoggerWatch()
 {
-	ThreadJoin();
+    ThreadJoin();
 }
 
-void							clsLoggerWatch::Watch(const clsDeviceID& ID)
+void                            clsLoggerWatch::Watch(const clsDeviceID& ID)
 {
-	_ID = ID;
+    _ID = ID;
 }
 
 
-virtual DWORD					clsLoggerWatch::ThreadFunction(void)
+virtual DWORD                   clsLoggerWatch::ThreadFunction(void)
 {
-	UINT	nErrorCount = 0;
+    UINT    nErrorCount = 0;
 
-	while (ThreadWait(1100))
-		{
-		if (_ID.bOk())
-			{
-			try
-				{
-				clsDeviceID	ID;
+    while (ThreadWait(1100))
+    {
+        if (_ID.bOk())
+        {
+            try
+            {
+                clsDeviceID ID;
 
-				if (_pLocalNet->QueryDataloggerID(ID))
-					{
-					// printf(" ID: %x-%x\n",nID,_nID);
-					if (ID != _ID)
-						{
-						_pLocalNet->AddException(
-							new clsExcept(
-								"Warning: datalogger ID did change unexpectedly!\n(old: %s, new: %s)",
-								(LPCTSTR)_ID.AsStr(),
-								(LPCTSTR)ID.AsStr()
-								));
-						}
-					nErrorCount = 0;
-					}
-				  else
-					{
-					if (++nErrorCount >= 3)
-						{
-						_pLocalNet->AddException(
-							new clsConnectionLostExcept(
-								"Warning: datalogger %s cannot be reached!",
-								(LPCTSTR)_ID.AsStr()
-								));
-						}
-					}
-				}
-			catch (clsExceptBase& e)
-				{
-				e.Push("Warning: datalogger %s cannot be reached! %s",
-					(LPCTSTR)_ID.AsStr());
-				_pLocalNet->AddException(
-					new clsConnectionLostExcept(e));
-				}
-			}
-		}
-	return(0);
+                if (_pLocalNet->QueryDataloggerID(ID))
+                {
+                    // printf(" ID: %x-%x\n",nID,_nID);
+                    if (ID != _ID)
+                    {
+                        _pLocalNet->AddException(
+                            new clsExcept(
+                                "Warning: datalogger ID did change unexpectedly!\n(old: %s, new: %s)",
+                                (LPCTSTR)_ID.AsStr(),
+                                (LPCTSTR)ID.AsStr()
+                            ));
+                    }
+                    nErrorCount = 0;
+                }
+                else
+                {
+                    if (++nErrorCount >= 3)
+                    {
+                        _pLocalNet->AddException(
+                            new clsConnectionLostExcept(
+                                "Warning: datalogger %s cannot be reached!",
+                                (LPCTSTR)_ID.AsStr()
+                            ));
+                    }
+                }
+            }
+            catch (clsExceptBase& e)
+            {
+                e.Push("Warning: datalogger %s cannot be reached! %s",
+                       (LPCTSTR)_ID.AsStr());
+                _pLocalNet->AddException(
+                    new clsConnectionLostExcept(e));
+            }
+        }
+    }
+    return(0);
 }
 
 

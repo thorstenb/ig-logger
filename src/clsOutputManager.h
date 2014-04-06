@@ -19,80 +19,97 @@
 #include <wcskip.h>
 
 class clsOutputManager
-	{
-	private:
-		String							CreateDirectory(const WCValSList<String>& DirectoryParts);
-	protected:
-		const clsConfigOfLocation& 		_Location;
-		String							_sBaseDirectory;
+{
+private:
+    String                          CreateDirectory(const WCValSList<String>&
+            DirectoryParts);
+protected:
+    const clsConfigOfLocation&      _Location;
+    String                          _sBaseDirectory;
 
-		virtual LPCTSTR					pszSectionName() = 0;
-		virtual bool					bHasCommonBaseDirectory() = 0;
-		void							UploadFile(const clsConfigOfInstallation& Installation, const String& sFilename);
-		virtual void					Initialize(const clsConfigOfInstallation& Installation, const clsLocalNetID& ID);
-	public:
-										clsOutputManager(const clsConfigOfLocation& Location);
-		virtual							~clsOutputManager()
-											{
-											}
+    virtual LPCTSTR                 pszSectionName() = 0;
+    virtual bool                    bHasCommonBaseDirectory() = 0;
+    void                            UploadFile(const clsConfigOfInstallation&
+            Installation, const String& sFilename);
+    virtual void                    Initialize(const clsConfigOfInstallation&
+            Installation, const clsLocalNetID& ID);
+public:
+    clsOutputManager(const clsConfigOfLocation& Location);
+    virtual                         ~clsOutputManager()
+    {
+    }
 
-		virtual bool					Append(const clsDeviceDataList& List, const clsErrorList& ErrorList, bool bHistorical, bool bForceGraphic) = 0;
-		virtual void					DailyMaintenance(const clsLocalNetID& /* ID */)
-											{
-											}
-	};
+    virtual bool                    Append(const clsDeviceDataList& List,
+                                           const clsErrorList& ErrorList, bool bHistorical, bool bForceGraphic) = 0;
+    virtual void                    DailyMaintenance(const clsLocalNetID& /* ID */)
+    {
+    }
+};
 
 class clsRRDTOOL
-	: public clsOutputManager
-	, private clsExecNotifier
-	{
-	private:
-		virtual LPCTSTR					pszSectionName()
-											{
-											return("RRDTool");
-											}
-		virtual bool					bHasCommonBaseDirectory()
-											{
-											return(false);
-											}
-		bool							ExecRRD(const String& sCmdLine);
+    : public clsOutputManager
+    , private clsExecNotifier
+{
+private:
+    virtual LPCTSTR                 pszSectionName()
+    {
+        return("RRDTool");
+    }
+    virtual bool                    bHasCommonBaseDirectory()
+    {
+        return(false);
+    }
+    bool                            ExecRRD(const String& sCmdLine);
 
-		String							sDatabaseName(const clsSYSTEMTIME& ST, bool bHistorical);
-		virtual void					Initialize(const clsConfigOfInstallation& Installation, const clsLocalNetID& ID);
-		void							CreateDatabase(const clsConfigOfInstallation& Installation, const clsSYSTEMTIME& ST, const String& sFilename, bool bHistorical);
-		void							CreateGraph(const clsConfigOfInstallation& Installation, const clsSYSTEMTIME& ST, const clsDataItemList& List, const clsErrorList& ErrorList, bool bHistorical);
-		void							AppendData(const clsConfigOfInstallation& Installation, const clsDataList& List, const clsErrorList& ErrorList, bool bHistorical, bool bForceGraphic);
-		virtual void					Notify(const String& s);
-	public:
-										clsRRDTOOL(const clsConfigOfLocation& Location);
+    String                          sDatabaseName(const clsSYSTEMTIME& ST,
+            bool bHistorical);
+    virtual void                    Initialize(const clsConfigOfInstallation&
+            Installation, const clsLocalNetID& ID);
+    void                            CreateDatabase(const clsConfigOfInstallation&
+            Installation, const clsSYSTEMTIME& ST, const String& sFilename,
+            bool bHistorical);
+    void                            CreateGraph(const clsConfigOfInstallation&
+            Installation, const clsSYSTEMTIME& ST, const clsDataItemList& List,
+            const clsErrorList& ErrorList, bool bHistorical);
+    void                            AppendData(const clsConfigOfInstallation&
+            Installation, const clsDataList& List, const clsErrorList& ErrorList,
+            bool bHistorical, bool bForceGraphic);
+    virtual void                    Notify(const String& s);
+public:
+    clsRRDTOOL(const clsConfigOfLocation& Location);
 
-		virtual bool					Append(const clsDeviceDataList& List, const clsErrorList& ErrorList, bool bHistorical, bool bForceGraphic);
-	};
+    virtual bool                    Append(const clsDeviceDataList& List,
+                                           const clsErrorList& ErrorList, bool bHistorical, bool bForceGraphic);
+};
 
 class clsSQLite
-	: public clsOutputManager
-	{
-	private:
-		clsDatabase*					_pDatabase;
+    : public clsOutputManager
+{
+private:
+    clsDatabase*                    _pDatabase;
 
-		virtual LPCTSTR					pszSectionName()
-											{
-											return("SQLite");
-											}
-		virtual bool					bHasCommonBaseDirectory()
-											{
-											return(true);
-											}
-		String							sTableName(const clsLocalNetID& ID);
-		virtual void					Initialize(const clsConfigOfInstallation& Installation, const clsLocalNetID& ID);
-		void							AppendData(const clsConfigOfInstallation& Installation, const clsLocalNetID& ID, const clsDataList& List, const clsErrorList& ErrorList);
-	public:
-										clsSQLite(const clsConfigOfLocation& Location);
-										~clsSQLite();
+    virtual LPCTSTR                 pszSectionName()
+    {
+        return("SQLite");
+    }
+    virtual bool                    bHasCommonBaseDirectory()
+    {
+        return(true);
+    }
+    String                          sTableName(const clsLocalNetID& ID);
+    virtual void                    Initialize(const clsConfigOfInstallation&
+            Installation, const clsLocalNetID& ID);
+    void                            AppendData(const clsConfigOfInstallation&
+            Installation, const clsLocalNetID& ID, const clsDataList& List,
+            const clsErrorList& ErrorList);
+public:
+    clsSQLite(const clsConfigOfLocation& Location);
+    ~clsSQLite();
 
-		virtual bool					Append(const clsDeviceDataList& List, const clsErrorList& ErrorList, bool bHistorical, bool bForceGraphic);
-		virtual void					DailyMaintenance(const clsLocalNetID& ID);
-	};
+    virtual bool                    Append(const clsDeviceDataList& List,
+                                           const clsErrorList& ErrorList, bool bHistorical, bool bForceGraphic);
+    virtual void                    DailyMaintenance(const clsLocalNetID& ID);
+};
 
 
 

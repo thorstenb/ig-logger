@@ -9,158 +9,168 @@
  * Original author: Christian Kaiser <info@invest-tools.com>
  */
 
-bool							clsLocalNet::QueryLoggerInverterHistoInterval(int& nMinutes)
+bool                            clsLocalNet::QueryLoggerInverterHistoInterval(
+    int& nMinutes)
 {
-	bool			bRes(false);
-	clsResult<bool>	APILog("clsLocalNet::QueryLoggerInverterHistoInterval()",bRes);
+    bool            bRes(false);
+    clsResult<bool> APILog("clsLocalNet::QueryLoggerInverterHistoInterval()",bRes);
 
-	/*
-	only minutes that are divisible by 5 are allowed, otherwise no logging is done.
-	*/
-	for (int nTry = 0; nTry < 3 && !bRes && !bUserAbortRequested(); ++nTry)
-		{
-		clsIGMessage	MsgQuery(	IGID_PC,
-									IGID_DATALOGGER,
-									clsIGMessage::IGCMD_DL_GET_OPTION,
-									1,
-									clsIGMessage::IG_DL_OPTION_INVERTERHISTOINTERVAL);
-		clsIGMessage	MsgResponse;
+    /*
+    only minutes that are divisible by 5 are allowed, otherwise no logging is done.
+    */
+    for (int nTry = 0; nTry < 3 && !bRes && !bUserAbortRequested(); ++nTry)
+    {
+        clsIGMessage    MsgQuery(   IGID_PC,
+                                    IGID_DATALOGGER,
+                                    clsIGMessage::IGCMD_DL_GET_OPTION,
+                                    1,
+                                    clsIGMessage::IG_DL_OPTION_INVERTERHISTOINTERVAL);
+        clsIGMessage    MsgResponse;
 
-		Log(">%-8s: %s","query", (LPCTSTR)MsgQuery.AsString());
+        Log(">%-8s: %s","query", (LPCTSTR)MsgQuery.AsString());
 
-		if (Query(MsgQuery,MsgResponse))
-			{
-			if (MsgResponse.PayloadSize() >= 1)
-				{
-				const BYTE*	pPayload = MsgResponse.Payload();
+        if (Query(MsgQuery,MsgResponse))
+        {
+            if (MsgResponse.PayloadSize() >= 1)
+            {
+                const BYTE* pPayload = MsgResponse.Payload();
 
-				nMinutes = pPayload[1] & 0x7f;
-				bRes = true;
-				}
-			}
-		}
-	return(bRes);
+                nMinutes = pPayload[1] & 0x7f;
+                bRes = true;
+            }
+        }
+    }
+    return(bRes);
 }
 
-bool							clsLocalNet::SetLoggerInverterHistoInterval(const int nMinutes)
+bool                            clsLocalNet::SetLoggerInverterHistoInterval(
+    const int nMinutes)
 {
-	bool			bRes(false);
-	clsResult<bool>	APILog(String::Format("clsLocalNet::SetLoggerInverterHistoInterval(%d minutes)",nMinutes),bRes);
+    bool            bRes(false);
+    clsResult<bool> APILog(
+        String::Format("clsLocalNet::SetLoggerInverterHistoInterval(%d minutes)",
+                       nMinutes),bRes);
 
-	/*
-	only minutes that are divisible by 5 are allowed, otherwise no logging is done.
-	*/
-	if (nMinutes > 0)
-		{
-		clsIGMessage	MsgQuery(	IGID_PC,
-									IGID_DATALOGGER,
-									clsIGMessage::IGCMD_DL_SET_OPTION,
-									3,
-									clsIGMessage::IG_DL_OPTION_INVERTERHISTOINTERVAL,
-									0xc3,
-									0x80 + nMinutes);
-		clsIGMessage	MsgResponse;
+    /*
+    only minutes that are divisible by 5 are allowed, otherwise no logging is done.
+    */
+    if (nMinutes > 0)
+    {
+        clsIGMessage    MsgQuery(   IGID_PC,
+                                    IGID_DATALOGGER,
+                                    clsIGMessage::IGCMD_DL_SET_OPTION,
+                                    3,
+                                    clsIGMessage::IG_DL_OPTION_INVERTERHISTOINTERVAL,
+                                    0xc3,
+                                    0x80 + nMinutes);
+        clsIGMessage    MsgResponse;
 
-		Log(">%-8s: %s","query", (LPCTSTR)MsgQuery.AsString());
+        Log(">%-8s: %s","query", (LPCTSTR)MsgQuery.AsString());
 
-		if (Query(MsgQuery,MsgResponse))
-			{
-			if (MsgResponse.PayloadSize() >= 4)
-				{
-				const BYTE*	pPayload = MsgResponse.Payload();
+        if (Query(MsgQuery,MsgResponse))
+        {
+            if (MsgResponse.PayloadSize() >= 4)
+            {
+                const BYTE* pPayload = MsgResponse.Payload();
 
-				if (pPayload[3] != 6)
-					{
-					throw clsFatalExcept("cannot set historical interval to %d!",nMinutes);
-					}
+                if (pPayload[3] != 6)
+                {
+                    throw clsFatalExcept("cannot set historical interval to %d!",nMinutes);
+                }
 
-				bRes = true;
-				}
-			}
-		  else
-			{
-			throw clsExcept("bad response: bad payload size (%d/%d)",MsgResponse.PayloadSize(),3);
-			}
-		}
+                bRes = true;
+            }
+        }
+        else
+        {
+            throw clsExcept("bad response: bad payload size (%d/%d)",
+                            MsgResponse.PayloadSize(),3);
+        }
+    }
 
-	return(bRes);
+    return(bRes);
 }
 
-bool							clsLocalNet::QueryLoggerSensorHistoInterval(int& nMinutes)
+bool                            clsLocalNet::QueryLoggerSensorHistoInterval(
+    int& nMinutes)
 {
-	bool			bRes(false);
-	clsResult<bool>	APILog("clsLocalNet::QueryLoggerSensorHistoInterval()",bRes);
+    bool            bRes(false);
+    clsResult<bool> APILog("clsLocalNet::QueryLoggerSensorHistoInterval()",bRes);
 
-	/*
-	only minutes that are divisible by 5 are allowed, otherwise no logging is done.
-	*/
-	for (int nTry = 0; nTry < 3 && !bRes && !bUserAbortRequested(); ++nTry)
-		{
-		clsIGMessage	MsgQuery(	IGID_PC,
-									IGID_DATALOGGER,
-									clsIGMessage::IGCMD_DL_GET_OPTION,
-									1,
-									clsIGMessage::IG_DL_OPTION_SENSORHISTOINTERVAL);
-		clsIGMessage	MsgResponse;
+    /*
+    only minutes that are divisible by 5 are allowed, otherwise no logging is done.
+    */
+    for (int nTry = 0; nTry < 3 && !bRes && !bUserAbortRequested(); ++nTry)
+    {
+        clsIGMessage    MsgQuery(   IGID_PC,
+                                    IGID_DATALOGGER,
+                                    clsIGMessage::IGCMD_DL_GET_OPTION,
+                                    1,
+                                    clsIGMessage::IG_DL_OPTION_SENSORHISTOINTERVAL);
+        clsIGMessage    MsgResponse;
 
-		Log(">%-8s: %s","query", (LPCTSTR)MsgQuery.AsString());
+        Log(">%-8s: %s","query", (LPCTSTR)MsgQuery.AsString());
 
-		if (Query(MsgQuery,MsgResponse))
-			{
-			if (MsgResponse.PayloadSize() >= 1)
-				{
-				const BYTE*	pPayload = MsgResponse.Payload();
+        if (Query(MsgQuery,MsgResponse))
+        {
+            if (MsgResponse.PayloadSize() >= 1)
+            {
+                const BYTE* pPayload = MsgResponse.Payload();
 
-				nMinutes = pPayload[1] & 0x7f;
-				bRes = true;
-				}
-			}
-		}
-	return(bRes);
+                nMinutes = pPayload[1] & 0x7f;
+                bRes = true;
+            }
+        }
+    }
+    return(bRes);
 }
 
-bool							clsLocalNet::SetLoggerSensorHistoInterval(const int nMinutes)
+bool                            clsLocalNet::SetLoggerSensorHistoInterval(
+    const int nMinutes)
 {
-	bool			bRes(false);
-	clsResult<bool>	APILog(String::Format("clsLocalNet::SetLoggeSensorrHistoInterval(%d minutes)",nMinutes),bRes);
+    bool            bRes(false);
+    clsResult<bool> APILog(
+        String::Format("clsLocalNet::SetLoggeSensorrHistoInterval(%d minutes)",
+                       nMinutes),bRes);
 
-	/*
-	only minutes that are divisible by 5 are allowed, otherwise no logging is done.
-	*/
-	if (nMinutes > 0)
-		{
-		clsIGMessage	MsgQuery(	IGID_PC,
-									IGID_DATALOGGER,
-									clsIGMessage::IGCMD_DL_SET_OPTION,
-									3,
-									clsIGMessage::IG_DL_OPTION_SENSORHISTOINTERVAL,
-									0xc3,
-									0x80 + nMinutes);
-		clsIGMessage	MsgResponse;
+    /*
+    only minutes that are divisible by 5 are allowed, otherwise no logging is done.
+    */
+    if (nMinutes > 0)
+    {
+        clsIGMessage    MsgQuery(   IGID_PC,
+                                    IGID_DATALOGGER,
+                                    clsIGMessage::IGCMD_DL_SET_OPTION,
+                                    3,
+                                    clsIGMessage::IG_DL_OPTION_SENSORHISTOINTERVAL,
+                                    0xc3,
+                                    0x80 + nMinutes);
+        clsIGMessage    MsgResponse;
 
-		Log(">%-8s: %s","query", (LPCTSTR)MsgQuery.AsString());
+        Log(">%-8s: %s","query", (LPCTSTR)MsgQuery.AsString());
 
-		if (Query(MsgQuery,MsgResponse))
-			{
-			if (MsgResponse.PayloadSize() >= 4)
-				{
-				const BYTE*	pPayload = MsgResponse.Payload();
+        if (Query(MsgQuery,MsgResponse))
+        {
+            if (MsgResponse.PayloadSize() >= 4)
+            {
+                const BYTE* pPayload = MsgResponse.Payload();
 
-				if (pPayload[3] != 6)
-					{
-					throw clsFatalExcept("cannot set historical interval to %d!",nMinutes);
-					}
+                if (pPayload[3] != 6)
+                {
+                    throw clsFatalExcept("cannot set historical interval to %d!",nMinutes);
+                }
 
-				bRes = true;
-				}
-			}
-		  else
-			{
-			throw clsExcept("bad response: bad payload size (%d/%d)",MsgResponse.PayloadSize(),3);
-			}
-		}
+                bRes = true;
+            }
+        }
+        else
+        {
+            throw clsExcept("bad response: bad payload size (%d/%d)",
+                            MsgResponse.PayloadSize(),3);
+        }
+    }
 
-	return(bRes);
+    return(bRes);
 }
 
 
