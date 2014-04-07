@@ -2,7 +2,7 @@
 *~
 \#*
 .DS_Store
-/.deps
+*.deps
 
 # autoconf generated stuff
 /aclocal.m4
@@ -20,7 +20,9 @@
 /ltmain.sh
 /m4
 /missing
-/Makefile.in
-/Makefile
+*Makefile.in
+*Makefile
 /stamp-h1
 /depcomp
+/libtool
+/test-driver
