@@ -117,24 +117,6 @@ AS_IF([test "x$enable_debug" = "xyes"], [
 ])
 AC_SUBST(DEBUG_CXXFLAGS)
 
-# =============
-# Documentation
-# =============
-AC_ARG_WITH(docs,
-	[AS_HELP_STRING([--without-docs], [Do not build documentation])],
-	[with_docs="$withval"],
-	[AS_IF([test "x$native_win32" = "xyes"], [with_docs=no], [with_docs=yes])]
-)
-AS_IF([test "x$with_docs" != "xno"], [
-	AC_PATH_PROG(DOXYGEN, [doxygen])
-	AS_IF([test -z "$DOXYGEN"], [
-		AC_MSG_WARN([*** Could not find doxygen in your PATH.])
-		AC_MSG_WARN([*** The documentation will not be built.])
-		build_docs=no
-	], [build_docs=yes])
-], [build_docs=no])
-AM_CONDITIONAL([WITH_LIBCDR_DOCS], [test "x$build_docs" != "xno"])
-
 # =====================
 # Prepare all .in files
 # =====================
